@@ -51,7 +51,7 @@ class ProductController:
 
         return customers
     
-    def get_clients_by_taste(self, taste:str):
+    def get_products_by_taste(self, taste:str):
         """
         Retrieves clients by state.
         """
