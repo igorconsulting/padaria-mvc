@@ -2,7 +2,7 @@ from .entity import Entity
 import re
 import unicodedata
 
-class Client(Entity):
+class Customer(Entity):
     def __init__(self, name: str, phone: str, state: str):
         super().__init__(name)
         self.phone = self.__clean_phone(phone)
