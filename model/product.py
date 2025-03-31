@@ -3,10 +3,15 @@ from .entity import Entity
 import re
 
 class Product(Entity):
-    def __init__(self, name: str, taste: str,price:str):
+    def __init__(self, name: str, taste: str,price):
         super().__init__(name)
         self.taste = self.__clean_taste(taste)
-        self.price = self.__clean_price(price)
+        if isinstance(price, str):  # Limpar e converter para float se for string
+            self.price = self.__clean_price(price)
+        elif isinstance(price, float):  # Se já é float, só atribui
+            self.price = price
+        else:
+            raise TypeError("Price must be a string or float.")
 
     def __clean_name(self, name: str) -> str:
         """
@@ -53,7 +58,7 @@ class Product(Entity):
         
         return cleaned_taste
     
-    def clean_price(self, price: str) -> float:
+    def __clean_price(self, price: str) -> float:
         """
         Cleans and converts the price to a float. It allows only numbers, commas, and points.
         If a comma is used as the decimal separator, it is replaced by a point.

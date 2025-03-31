@@ -1,4 +1,4 @@
-from display_builder import Display
+from view.display_builder import Display
 
 class HomeScreen(Display):
     def __init__(self):
@@ -21,11 +21,10 @@ class HomeScreen(Display):
         * Cadastrar Cliente - 2
         * Buscar Cliente por Nome - 3
         * Buscar Cliente por Estado  - 4
-        * Cadastrar Produto - 5
-        * Buscar Produto por Nome - 6
-        * Buscar Produto por Sabor - 7
-        * Mostrar Banco de Dados de Clientes - 8
-        * Mostrar Banco de Dados de Produtos - 9
+        * Buscar Produto por Nome - 5
+        * Buscar Produto por Sabor - 6
+        * Mostrar Banco de Dados de Clientes - 7
+        * Mostrar Banco de Dados de Produtos - 8
         * Sair - 0
         '''
 

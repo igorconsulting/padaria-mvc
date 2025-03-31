@@ -22,11 +22,10 @@ class CustomerController:
                 '''
                 )
             conn.commit()
-            
-    # adicionar cliente        
-    def add_client(self,customer) -> None:
+                    
+    def add_customer(self,customer) -> None:
         """
-        Adds a new client to the database
+        Adds a new customer to the database
         """
 
         with sqlite3.connect(self.db_path) as conn:
@@ -51,7 +50,7 @@ class CustomerController:
 
         return customers
     
-    def get_clients_by_state(self, state:str):
+    def get_customers_by_state(self, state:str):
         """
         Retrieves clients by state.
         """
@@ -63,4 +62,18 @@ class CustomerController:
             rows = cursor.fetchall()
 
         customers = [Customer(row[1],row[2],row[3]) for row in rows]
-        return customers 
+        return customers
+
+    def get_customers_by_name(self, name:str):
+        """
+        Retrieves clients by name.
+        """
+        with sqlite3.connect(self.db_path) as conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                'SELECT * FROM customers WHERE name = ?',(name,)
+            )
+            rows = cursor.fetchall()
+
+        customers = [Customer(row[1],row[2],row[3]) for row in rows]
+        return customers

@@ -33,4 +33,4 @@ class Customer(Entity):
         """
         Returns a string representation of the Client object.
         """
-        return f"Cliente {self.name}\nTelefone: {self.phone}\nEstado: {self.state})"
+        return f"Cliente {self.name}\nTelefone: {self.phone}\nEstado: {self.state}"
