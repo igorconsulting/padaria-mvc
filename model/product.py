@@ -1,10 +1,12 @@
 import unicodedata
 from .entity import Entity
+import re
 
 class Product(Entity):
-    def __init__(self, name: str, taste: str):
+    def __init__(self, name: str, taste: str,price:str):
         super().__init__(name)
         self.taste = self.__clean_taste(taste)
+        self.price = self.__clean_price(price)
 
     def __clean_name(self, name: str) -> str:
         """
@@ -50,6 +52,32 @@ class Product(Entity):
         cleaned_taste = unicodedata.normalize('NFKD', cleaned_taste).encode('ASCII', 'ignore').decode('utf-8')
         
         return cleaned_taste
+    
+    def clean_price(self, price: str) -> float:
+        """
+        Cleans and converts the price to a float. It allows only numbers, commas, and points.
+        If a comma is used as the decimal separator, it is replaced by a point.
+        
+        Args:
+            price (str): The raw price input as a string.
+
+        Returns:
+            float: The cleaned and converted price.
+        
+        Raises:
+            ValueError: If the resulting price cannot be converted to a float.
+        """
+        # Remove any character that is not a digit, a point, or a comma
+        cleaned_price = re.sub(r'[^0-9.,]', '', price)
+        
+        # Replace commas with points (to support European notation like '12,99')
+        cleaned_price = cleaned_price.replace(',', '.')
+        
+        try:
+            # Convert the cleaned string to a float
+            return float(cleaned_price)
+        except ValueError:
+            raise ValueError(f"Invalid price format: '{price}'")
 
     def __str__(self):
         """
@@ -58,4 +86,4 @@ class Product(Entity):
         Returns:
             str: A formatted string describing the product.
         """
-        return f"Produto {self.name} de {self.taste}"
+        return f"Produto {self.name} de {self.taste}, preço: R${self.price}"
