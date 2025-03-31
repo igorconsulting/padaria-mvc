@@ -1,4 +1,4 @@
-from model.customer import Customer
+from model.product import Product
 import sqlite3
 
 class ProductController:
@@ -8,7 +8,7 @@ class ProductController:
 
     def __create_table(self):
         """
-        Creates the clients table if it doesn't already exists.
+        Creates the products table if it doesn't already exists.
         """
         with sqlite3.connect(self.db_path) as conn:
             cursor = conn.cursor()
@@ -18,49 +18,48 @@ class ProductController:
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     name TEXT NOT NULL,
                     taste TEXT NOT NULL,
-                    price DOUBLE NOT NULL)
+                    price REAL NOT NULL)
                 '''
                 )
             conn.commit()
-            
-    # adicionar cliente        
-    def add_product(self,product) -> None:
+                    
+    def add_product(self,product: Product) -> None:
         """
-        Adds a new client to the database
+        Adds a new product to the database
         """
 
         with sqlite3.connect(self.db_path) as conn:
             cursor = conn.cursor()
             cursor.execute(('''
-                INSERT INTO product (name, taste, price)
+                INSERT INTO products (name, taste, price)
                 VALUES (?,?,?)
             '''
-            ), (product.name, product.phone, product.state))
+            ), (product.name, product.taste, product.price))
             conn.commit()
     
     def get_all_products(self):
         """
-        Retrieves all customers from the database
+        Retrieves all products from the database
         """
         with sqlite3.connect(self.db_path) as conn:
             cursor = conn.cursor()
             cursor.execute('SELECT * FROM products')
             rows = cursor.fetchall()
 
-        customers = [Customer(row[1],row[2],row[3]) for row in rows]
+        products = [Product(row[1],row[2],row[3]) for row in rows]
 
-        return customers
+        return products
     
     def get_products_by_taste(self, taste:str):
         """
-        Retrieves clients by state.
+        Retrieves products by state.
         """
         with sqlite3.connect(self.db_path) as conn:
             cursor = conn.cursor()
             cursor.execute(
-                'SELECT * FROM customers WHERE taste = ?',(taste,)
+                'SELECT * FROM products WHERE taste = ?',(taste,)
             )
             rows = cursor.fetchall()
 
-        customers = [Customer(row[1],row[2],row[3]) for row in rows]
-        return customers 
+        products = [Product(row[1],row[2],row[3]) for row in rows]
+        return products 

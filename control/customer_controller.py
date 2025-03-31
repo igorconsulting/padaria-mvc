@@ -8,7 +8,7 @@ class CustomerController:
 
     def __create_table(self):
         """
-        Creates the clients table if it doesn't already exists.
+        Creates the customer table if it doesn't already exists.
         """
         with sqlite3.connect(self.db_path) as conn:
             cursor = conn.cursor()
