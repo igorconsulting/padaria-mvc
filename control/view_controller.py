@@ -80,9 +80,11 @@ class ViewController(Display):
     def search_product_by_taste(self):
         self.show_message("\n--- Search Product by Taste ---")
         taste = input("Enter product taste to search: ")
+
+        cleaned_taste = taste.lower()
         
-        products = self.product_controller.get_products_by_taste(taste)
-        
+        products = self.product_controller.get_products_by_taste(cleaned_taste)
+
         if products:
             for product in products:
                 self.show_message(str(product))
@@ -92,8 +94,10 @@ class ViewController(Display):
     def search_customer_by_name(self):
         self.show_message("\n--- Search Customer by Name ---")
         name = input("Enter customer name to search: ")
+
+        cleaned_name = name.lower()
         
-        customers = self.customer_controller.get_customers_by_name(name)
+        customers = self.customer_controller.get_customers_by_name(cleaned_name)
         
         if customers:
             for customer in customers:
@@ -104,8 +108,10 @@ class ViewController(Display):
     def search_customer_by_state(self):
         self.show_message("\n--- Search Customer by State ---")
         state = input("Enter customer state to search: ")
+
+        cleaned_state = state.lower()
         
-        customers = self.customer_controller.get_customers_by_state(state)
+        customers = self.customer_controller.get_customers_by_state(cleaned_state)
         
         if customers:
             for customer in customers:

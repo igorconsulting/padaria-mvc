@@ -51,7 +51,7 @@ class Product(Entity):
             str: The cleaned taste description with accents removed and normalized spacing.
         """
         # Remove extra spaces
-        cleaned_taste = ' '.join(taste.strip().split())
+        cleaned_taste = ' '.join(taste.strip().lower().split())
         
         # Remove accents by normalizing to NFKD form and converting to ASCII
         cleaned_taste = unicodedata.normalize('NFKD', cleaned_taste).encode('ASCII', 'ignore').decode('utf-8')
