@@ -13,27 +13,6 @@ class Product(Entity):
         else:
             raise TypeError("Price must be a string or float.")
 
-    def __clean_name(self, name: str) -> str:
-        """
-        Cleans the product name by:
-        - Removing leading and trailing spaces.
-        - Converting all characters to lowercase.
-        - Removing accents from characters (e.g., 'Bolo de Morango' → 'bolo de morango').
-        - Keeping only one space between words, even if multiple spaces are provided by the user.
-        
-        Args:
-            name (str): The original name of the product.
-
-        Returns:
-            str: The cleaned product name in lowercase, without accents, and with normalized spacing.
-        """
-        # Remove extra spaces and convert to lowercase
-        cleaned_name = ' '.join(name.strip().lower().split())
-        
-        # Remove accents by normalizing to NFKD form and converting to ASCII
-        cleaned_name = unicodedata.normalize('NFKD', cleaned_name).encode('ASCII', 'ignore').decode('utf-8')
-        return cleaned_name
-
     def __clean_taste(self, taste: str) -> str:
         """
         Cleans the product taste description by:

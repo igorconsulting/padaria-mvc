@@ -1,7 +1,8 @@
 from model.product import Product
 import sqlite3
+from view.product import ProductView
 
-class ProductController:
+class ProductControllerLegacy:
     def __init__(self, db_path='data/bakery.db'):
         self.db_path = db_path
         self.__create_table()
@@ -63,3 +64,36 @@ class ProductController:
 
         products = [Product(row[1],row[2],row[3]) for row in rows]
         return products 
+    
+from model.product import Product
+from view.product import ProductView
+from repository.product_repository import ProductRepository
+
+class ProductController:
+    def __init__(self):
+        self.view = ProductView()
+        self.repo = ProductRepository()
+
+    def register_product(self):
+        name, taste, price = self.view.input_product_data()
+        try:
+            product = Product(name, taste, price)
+            self.repo.save(product)
+            self.view.show_message("Product registered successfully!")
+        except ValueError as e:
+            self.view.show_message(f"Error: {e}")
+
+    def list_all_products(self):
+        products = self.repo.get_all()
+        self.view.show_products(products)
+
+    def search_by_name(self):
+        name = input("Enter customer name to search: ")
+        products = self.repo.get_by_name(name.lower())
+        self.view.show_products(products)
+
+
+    def search_by_taste(self):
+        taste = input("Enter product taste to search: ").lower()
+        products = self.repo.get_by_taste(taste)
+        self.view.show_products(products)

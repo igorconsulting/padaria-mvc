@@ -143,3 +143,51 @@ class ViewController(Display):
         while True:
             command = self.home_screen.display()
             self.move_screen(command)
+
+
+from view.home_screen import HomeScreen
+from view.display_builder import Display
+from control.customer_controller import CustomerController
+from control.product_controller import ProductController
+
+class ViewController(Display):
+    def __init__(self):
+        super().__init__()
+        self.home_screen = HomeScreen()
+        self.product_controller = ProductController()
+        self.customer_controller = CustomerController()
+
+    def move_screen(self, command: str) -> None:
+        """
+        Routes the user command to the appropriate controller action.
+        """
+        match command:
+            case '1':
+                self.product_controller.register_product()
+            case '2':
+                self.customer_controller.register_customer()
+            case '3':
+                self.customer_controller.search_by_name()
+            case '4':
+                self.customer_controller.search_by_state()
+            case '5':
+                self.product_controller.search_by_name()  # você pode implementar essa busca corretamente no repo
+            case '6':
+                self.product_controller.search_by_taste()
+            case '7':
+                self.customer_controller.list_all_customers()
+            case '8':
+                self.product_controller.list_all_products()
+            case '0':
+                self.show_message("Saindo do sistema. Obrigado!")
+                exit()
+            case _:
+                self.show_message("Comando inválido. Tente novamente.")
+
+    def display(self) -> None:
+        """
+        Loop principal da aplicação. Exibe o menu e roteia os comandos.
+        """
+        while True:
+            command = self.home_screen.display()
+            self.move_screen(command)
