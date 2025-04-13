@@ -26,5 +26,6 @@ class Entity:
 
         return cleaned_name
 
+    @abstractmethod
     def __str__(self):
         pass
