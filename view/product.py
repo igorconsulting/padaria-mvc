@@ -4,6 +4,8 @@ class ProductView:
         taste = input("Enter product taste: ")
         price = input("Enter product price (e.g., 12.99): ")
 
+        return name,taste,price
+
     def show_product(self, product):
         print(str(product))
 
@@ -13,5 +15,5 @@ class ProductView:
         for product in products:
             self.show_product(product)
 
-    def show_messages(self, message):
+    def show_message(self, message):
         print(message)
