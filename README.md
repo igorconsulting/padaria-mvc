@@ -2,6 +2,8 @@
 
 A console-based application developed in Python following the **Model-View-Controller (MVC)** architectural pattern, enforcing strict separation of concerns across components for maintainability, clarity, and scalability.
 
+<img title="MVC Pattern" alt="MVC Pattern extracted from wikipedia.com" src="img/mvc-process.svg.png">
+
 ---
 
 ## Features
